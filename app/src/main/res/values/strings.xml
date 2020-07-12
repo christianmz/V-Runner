@@ -6,6 +6,11 @@
     <string name="logout">Logout</string>
     <string name="Runs">Runs</string>
     <string name="nav_header">Nav Header Background</string>
+    <string name="distance">%s Km</string>
+    <string name="calories">%s Kcal</string>
+    <string name="speed">%s Km/H</string>
+    <string name="timestamp">%s</string>
+    <string name="time">%s min</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -18,9 +23,11 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="configurations">Configurations</string>
     <string name="training">Training</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="your_runs">Your Runs</string>
 </resources>

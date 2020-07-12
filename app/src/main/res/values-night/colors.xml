@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E73022</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#08153B</color>
 
     <color name="color_primary">#e73022</color>
     <color name="color_primary_light">#ff694d</color>
     <color name="color_primary_variant">#ac0000</color>
 
-    <color name="color_secondary">#08153b</color>
+    <color name="color_secondary">#000017</color>
     <color name="color_secondary_Light">#363a66</color>
     <color name="color_secondary_variant">#000017</color>
 
-    <color name="color_background">#fafafa</color>
-    <color name="color_surface">#ffffff</color>
+    <color name="color_background">#000017</color>
+    <color name="color_surface">#000017</color>
     <color name="color_error">#ac0000</color>
 
-    <color name="color_on_background">#000017</color>
-    <color name="color_on_surface">#000017</color>
+    <color name="color_on_background">#fafafa</color>
+    <color name="color_on_surface">#ffffff</color>
     <color name="color_on_error">#fafafa</color>
     <color name="color_on_primary">#ffffff</color>
     <color name="color_on_secondary">#fafafa</color>
