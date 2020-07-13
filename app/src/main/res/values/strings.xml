@@ -11,6 +11,7 @@
     <string name="speed">%s Km/H</string>
     <string name="timestamp">%s</string>
     <string name="time">%s min</string>
+    <string name="empty" />
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -30,4 +31,8 @@
     <string name="dark_theme">Dark Theme</string>
     <string name="light_theme">Light Theme</string>
     <string name="your_runs">Your Runs</string>
+    <string name="finish_run">Finish Run</string>
+    <string name="new_run">New Run</string>
+    <string name="chronometer">00:00:00:00</string>
+    <string name="runner_photo">Runner\'s photo</string>
 </resources>

@@ -3,13 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home">
+    android:label="@string/new_run"
+    app:startDestination="@id/nav_runs">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_runs"
         android:name="com.meazza.v_runner.ui.runs.RunsFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_runs" />
+        android:label="@string/empty"
+        tools:layout="@layout/fragment_runs">
+        <action
+            android:id="@+id/action_new_run"
+            app:destination="@id/nav_new_run" />
+        <action
+            android:id="@+id/action_nav_runs_to_runDetailFragment"
+            app:destination="@id/nav_run_detail" />
+    </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.meazza.v_runner.ui.profile.ProfileFragment"
@@ -25,4 +33,14 @@
         android:name="com.meazza.v_runner.ui.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@xml/root_preferences" />
+    <fragment
+        android:id="@+id/nav_new_run"
+        android:name="com.meazza.v_runner.ui.runs.NewRunFragment"
+        android:label="@string/new_run"
+        tools:layout="@layout/fragment_new_run" />
+    <fragment
+        android:id="@+id/nav_run_detail"
+        android:name="com.meazza.v_runner.ui.runs.RunDetailFragment"
+        android:label="fragment_run_detail"
+        tools:layout="@layout/fragment_run_detail" />
 </navigation>
