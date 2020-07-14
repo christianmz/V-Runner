@@ -35,4 +35,9 @@
     <string name="new_run">New Run</string>
     <string name="chronometer">00:00:00:00</string>
     <string name="runner_photo">Runner\'s photo</string>
+    <string name="total_distance">Total Distance</string>
+    <string name="total_time">Total Time</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="age">Age</string>
 </resources>
