@@ -27,12 +27,12 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
-                    android:id="@+id/image_runs"
+                    android:id="@+id/image_hero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/your_runs"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/runner" />
+                    app:srcCompat="@drawable/im_hero" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -56,4 +56,5 @@
             android:src="@drawable/ic_home" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>
