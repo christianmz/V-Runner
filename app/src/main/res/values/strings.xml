@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">V-Runner</string>
-    <string name="google_maps_key">AIzaSyBwOTF3mMeic-rvR9oW9SgBO-ynap6gYZQ</string>
     <string name="statistics">Statistics</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
