@@ -1,4 +1,4 @@
-package com.meazza.v_runner.ui.runs
+package com.meazza.v_runner.ui.runs.run_detail
 
 import androidx.fragment.app.Fragment
 import com.meazza.v_runner.R

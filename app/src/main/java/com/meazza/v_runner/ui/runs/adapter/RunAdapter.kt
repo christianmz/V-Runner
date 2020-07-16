@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.meazza.v_runner.R
-import com.meazza.v_runner.data.Run
+import com.meazza.v_runner.data.model.Run
 import com.meazza.v_runner.databinding.CardviewRunBinding
 
 

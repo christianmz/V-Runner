@@ -35,12 +35,12 @@
         tools:layout="@xml/root_preferences" />
     <fragment
         android:id="@+id/nav_new_run"
-        android:name="com.meazza.v_runner.ui.runs.NewRunFragment"
+        android:name="com.meazza.v_runner.ui.runs.new_run.NewRunFragment"
         android:label="@string/new_run"
         tools:layout="@layout/fragment_new_run" />
     <fragment
         android:id="@+id/nav_run_detail"
-        android:name="com.meazza.v_runner.ui.runs.RunDetailFragment"
+        android:name="com.meazza.v_runner.ui.runs.run_detail.RunDetailFragment"
         android:label="fragment_run_detail"
         tools:layout="@layout/fragment_run_detail" />
 </navigation>
