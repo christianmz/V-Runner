@@ -6,6 +6,11 @@
     android:label="@string/new_run"
     app:startDestination="@id/nav_runs">
 
+    <action
+        android:id="@+id/action_global_nav_new_run"
+        app:destination="@id/nav_new_run"
+        app:launchSingleTop="true" />
+
     <fragment
         android:id="@+id/nav_runs"
         android:name="com.meazza.v_runner.ui.runs.RunsFragment"
@@ -18,6 +23,7 @@
             android:id="@+id/action_nav_runs_to_runDetailFragment"
             app:destination="@id/nav_run_detail" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.meazza.v_runner.ui.profile.ProfileFragment"

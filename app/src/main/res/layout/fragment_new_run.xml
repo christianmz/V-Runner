@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.runs.new_run.NewRunFragment">
 
-    <ImageView
-        android:id="@+id/map_placeholder"
-        android:layout_width="wrap_content"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="120dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        android:src="@drawable/im_map_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

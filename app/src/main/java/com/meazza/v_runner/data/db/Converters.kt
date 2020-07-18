@@ -6,7 +6,7 @@ import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
 
-object Converters {
+class Converters {
 
     @TypeConverter
     fun toBitmap(bytes: ByteArray): Bitmap =

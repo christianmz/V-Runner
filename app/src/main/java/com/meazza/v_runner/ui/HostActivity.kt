@@ -1,5 +1,6 @@
 package com.meazza.v_runner.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.meazza.v_runner.R
+import com.meazza.v_runner.common.Constants.ACTION_SHOW_TRACKING_FRAGMENT
 import kotlinx.android.synthetic.main.activity_host.*
 
 
@@ -26,6 +28,7 @@ class HostActivity : AppCompatActivity(R.layout.activity_host) {
         super.onCreate(savedInstanceState)
         tb_main.setupWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+        navigateToTrackingFragmentIfNeeded(intent)
         setLogoVisibility()
     }
 
@@ -36,6 +39,17 @@ class HostActivity : AppCompatActivity(R.layout.activity_host) {
                 else -> iv_logo.visibility = View.GONE
             }
         }
+    }
+
+    private fun navigateToTrackingFragmentIfNeeded(intent: Intent?) {
+        if (intent?.action == ACTION_SHOW_TRACKING_FRAGMENT) {
+            navController.navigate(R.id.action_global_nav_new_run)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navigateToTrackingFragmentIfNeeded(intent)
     }
 
     override fun onSupportNavigateUp(): Boolean {
