@@ -57,10 +57,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iv_start_run" />
+                app:layout_constraintStart_toEndOf="@+id/iv_toggle_run" />
 
             <ImageView
-                android:id="@+id/iv_start_run"
+                android:id="@+id/iv_toggle_run"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="16dp"

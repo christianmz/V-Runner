@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">V-Runner</string>
-    <string name="google_maps_key">AIzaSyBwOTF3mMeic-rvR9oW9SgBO-ynap6gYZQ</string>
     <string name="statistics">Statistics</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
@@ -45,4 +44,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="configurations">Configurations</string>
     <string name="you_need_to_accept_location_permissions">You need to accept location permissions to use this app.</string>
+    <string name="cancel">Cancel</string>
 </resources>

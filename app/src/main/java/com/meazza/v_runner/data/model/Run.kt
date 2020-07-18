@@ -21,7 +21,7 @@ data class Run(
     var averageSpeedInKmH: Float = 0f,
 
     @ColumnInfo(name = "distance_in_meters")
-    var distanceInMeters: Float = 0f,
+    var distanceInMeters: Int = 0,
 
     @ColumnInfo(name = "time_in_millis")
     val timeInMillis: Long = 0L,
@@ -37,7 +37,7 @@ data class Run(
         parcel.readParcelable(Bitmap::class.java.classLoader),
         parcel.readLong(),
         parcel.readFloat(),
-        parcel.readFloat(),
+        parcel.readInt(),
         parcel.readLong(),
         parcel.readInt()
     ) {
@@ -48,7 +48,7 @@ data class Run(
         parcel.writeParcelable(image, flags)
         parcel.writeLong(timestamp)
         parcel.writeFloat(averageSpeedInKmH)
-        parcel.writeFloat(distanceInMeters)
+        parcel.writeInt(distanceInMeters)
         parcel.writeLong(timeInMillis)
         parcel.writeInt(caloriesBurned)
         parcel.writeValue(id)
