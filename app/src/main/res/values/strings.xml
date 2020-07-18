@@ -45,4 +45,5 @@
     <string name="configurations">Configurations</string>
     <string name="you_need_to_accept_location_permissions">You need to accept location permissions to use this app.</string>
     <string name="cancel">Cancel</string>
+
 </resources>
