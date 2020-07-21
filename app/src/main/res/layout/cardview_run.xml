@@ -7,7 +7,7 @@
 
         <variable
             name="run"
-            type="com.meazza.v_runner.data.model.Run" />
+            type="com.meazza.v_runner.data.model.RunEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

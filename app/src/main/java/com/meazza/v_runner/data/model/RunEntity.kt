@@ -1,6 +1,5 @@
 package com.meazza.v_runner.data.model
 
-import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -10,9 +9,9 @@ import com.meazza.v_runner.common.Constants.TABLE_NAME_RUNNING
 
 
 @Entity(tableName = TABLE_NAME_RUNNING)
-data class Run(
+data class RunEntity(
     @ColumnInfo(name = "image")
-    var image: Bitmap? = null,
+    var image: String? = "",
 
     @ColumnInfo(name = "time_stamp")
     var timestamp: Long = 0L,
@@ -34,7 +33,7 @@ data class Run(
     var id: Int? = null
 
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Bitmap::class.java.classLoader),
+        parcel.readString(),
         parcel.readLong(),
         parcel.readFloat(),
         parcel.readInt(),
@@ -45,7 +44,7 @@ data class Run(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(image, flags)
+        parcel.writeString(image)
         parcel.writeLong(timestamp)
         parcel.writeFloat(averageSpeedInKmH)
         parcel.writeInt(distanceInMeters)
@@ -58,12 +57,12 @@ data class Run(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Run> {
-        override fun createFromParcel(parcel: Parcel): Run {
-            return Run(parcel)
+    companion object CREATOR : Parcelable.Creator<RunEntity> {
+        override fun createFromParcel(parcel: Parcel): RunEntity {
+            return RunEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<Run?> {
+        override fun newArray(size: Int): Array<RunEntity?> {
             return arrayOfNulls(size)
         }
     }

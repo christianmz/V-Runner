@@ -45,7 +45,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":business"))
     implementation(fileTree("libs") { include(listOf("*.jar")) })
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
     implementation("androidx.core:core-ktx:1.5.0-alpha01")
     implementation("androidx.appcompat:appcompat:1.3.0-alpha01")

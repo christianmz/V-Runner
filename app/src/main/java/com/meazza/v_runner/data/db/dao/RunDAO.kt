@@ -2,35 +2,35 @@ package com.meazza.v_runner.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.meazza.v_runner.data.model.Run
+import com.meazza.v_runner.data.model.RunEntity
 
 
 @Dao
 interface RunDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRun(run: Run)
+    suspend fun insertRun(run: RunEntity)
 
     @Delete
-    suspend fun deleteRun(run: Run)
+    suspend fun deleteRun(run: RunEntity)
 
     @Query("SELECT * FROM runs_table WHERE id LIKE :id")
-    fun getRun(id: Int): LiveData<Run>
+    fun getRun(id: Int): LiveData<RunEntity>
 
     @Query("SELECT * FROM runs_table ORDER BY time_stamp DESC")
-    fun getAllRunsSortedByDate(): LiveData<List<Run>>
+    fun getAllRunsSortedByDate(): LiveData<List<RunEntity>>
 
     @Query("SELECT * FROM runs_table ORDER BY time_in_millis DESC")
-    fun getAllRunsSortedByTimeInMillis(): LiveData<List<Run>>
+    fun getAllRunsSortedByTimeInMillis(): LiveData<List<RunEntity>>
 
     @Query("SELECT * FROM runs_table ORDER BY calories_burned DESC")
-    fun getAllRunsSortedByCaloriesBurned(): LiveData<List<Run>>
+    fun getAllRunsSortedByCaloriesBurned(): LiveData<List<RunEntity>>
 
     @Query("SELECT * FROM runs_table ORDER BY average_speed_in_kmh DESC")
-    fun getAllRunsSortedByAvgSpeed(): LiveData<List<Run>>
+    fun getAllRunsSortedByAvgSpeed(): LiveData<List<RunEntity>>
 
     @Query("SELECT * FROM runs_table ORDER BY distance_in_meters DESC")
-    fun getAllRunsSortedByDistance(): LiveData<List<Run>>
+    fun getAllRunsSortedByDistance(): LiveData<List<RunEntity>>
 
     @Query("SELECT SUM(time_in_millis) FROM runs_table")
     fun getTotalTimeInMillis(): LiveData<Long>
