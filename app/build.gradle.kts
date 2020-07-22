@@ -45,7 +45,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":business"))
     implementation(fileTree("libs") { include(listOf("*.jar")) })
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
@@ -79,7 +78,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.2")
 
     implementation("io.coil-kt:coil:0.11.0")
     implementation("org.jetbrains.anko:anko:0.10.8")
