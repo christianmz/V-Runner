@@ -7,24 +7,24 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.meazza.v_runner.R
-import com.meazza.v_runner.data.model.RunEntity
+import com.meazza.v_runner.data.model.Run
 import com.meazza.v_runner.databinding.CardviewRunBinding
 
 
 class RunAdapter : RecyclerView.Adapter<RunAdapter.Holder>() {
 
-    private var onItemClickListener: ((RunEntity) -> Unit)? = null
+    private var onItemClickListener: ((Run) -> Unit)? = null
 
-    val differ = AsyncListDiffer(this, object : DiffUtil.ItemCallback<RunEntity>() {
+    val differ = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Run>() {
 
-        override fun areItemsTheSame(oldItem: RunEntity, newItem: RunEntity) =
+        override fun areItemsTheSame(oldItem: Run, newItem: Run) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: RunEntity, newItem: RunEntity) =
+        override fun areContentsTheSame(oldItem: Run, newItem: Run) =
             oldItem == newItem
     })
 
-    fun setOnClickListener(listener: ((RunEntity) -> Unit)) {
+    fun setOnClickListener(listener: ((Run) -> Unit)) {
         onItemClickListener = listener
     }
 

@@ -1,10 +1,6 @@
 package com.meazza.v_runner.common
 
  object Constants {
-    const val DATABASE_VERSION = 1
-    const val DATABASE_NAME = "vrunner.db"
-    const val TABLE_NAME_RUNNING = "runs_table"
-
     const val REQUEST_CODE_LOCATION_PERMISSION = 0
 
     const val ACTION_START_OR_RESUME_SERVICE = "ACTION_START_OR_RESUME_SERVICE"

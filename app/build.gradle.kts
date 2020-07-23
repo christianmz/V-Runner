@@ -63,18 +63,19 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha05")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha05")
 
-    implementation("androidx.room:room-runtime:2.3.0-alpha01")
-    implementation("androidx.room:room-ktx:2.3.0-alpha01")
-    kapt("androidx.room:room-compiler:2.3.0-alpha01")
-
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01")
-    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha01")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
 
     implementation("com.google.dagger:hilt-android:2.28.1-alpha")
     kapt("com.google.dagger:hilt-android-compiler:2.28.1-alpha")
 
     implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.android.gms:play-services-maps:17.0.0")
+
+    implementation("com.google.firebase:firebase-core:17.4.4")
+    implementation("com.google.firebase:firebase-auth:19.3.2")
+    implementation("com.google.firebase:firebase-storage:19.1.1")
+    implementation("com.google.firebase:firebase-firestore:21.5.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
