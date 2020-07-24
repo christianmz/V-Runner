@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label="@string/new_run"
-    app:startDestination="@id/nav_runs">
+    app:startDestination="@id/loginFragment">
 
     <action
         android:id="@+id/action_global_nav_new_run"
@@ -49,4 +49,9 @@
         android:name="com.meazza.v_runner.ui.runs.run_detail.RunDetailFragment"
         android:label="fragment_run_detail"
         tools:layout="@layout/fragment_run_detail" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.meazza.v_runner.ui.auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
 </navigation>

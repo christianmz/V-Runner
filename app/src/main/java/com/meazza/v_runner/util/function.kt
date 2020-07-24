@@ -1,8 +1,21 @@
 package com.meazza.v_runner.util
 
 import android.location.Location
+import android.util.Patterns
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
+
+fun isValidEmail(email: String): Boolean {
+    val pattern = Patterns.EMAIL_ADDRESS
+    return pattern.matcher(email).matches()
+}
+
+fun isValidPassword(password: String): Boolean {
+    val patternPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=\\S+\$).{6,}\$"
+    val pattern = Pattern.compile(patternPassword)
+    return pattern.matcher(password).matches()
+}
 
 fun getFormattedStopWatchTime(ms: Long, includeMillis: Boolean = false): String {
 

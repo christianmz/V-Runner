@@ -11,9 +11,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.meazza.v_runner.R
 import com.meazza.v_runner.common.Constants.ACTION_SHOW_TRACKING_FRAGMENT
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_host.*
 
 
+@AndroidEntryPoint
 class HostActivity : AppCompatActivity(R.layout.activity_host) {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }

@@ -5,6 +5,8 @@ plugins {
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -76,6 +78,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:19.3.2")
     implementation("com.google.firebase:firebase-storage:19.1.1")
     implementation("com.google.firebase:firebase-firestore:21.5.0")
+    implementation("com.google.firebase:firebase-analytics:17.4.4")
+    implementation("com.google.firebase:firebase-crashlytics:17.1.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
@@ -85,6 +89,7 @@ dependencies {
     implementation("org.jetbrains.anko:anko:0.10.8")
     implementation("pub.devrel:easypermissions:3.0.0")
     implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.4")
     implementation("com.google.android.material:material:1.3.0-alpha01")
