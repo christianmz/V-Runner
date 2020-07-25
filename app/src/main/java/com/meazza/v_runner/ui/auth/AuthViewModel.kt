@@ -1,9 +1,10 @@
 package com.meazza.v_runner.ui.auth
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -19,85 +20,95 @@ import com.meazza.v_runner.common.Constants.WRONG_PASSWORD
 import com.meazza.v_runner.data.repository.auth.AuthRepository
 import com.meazza.v_runner.util.isValidEmail
 import com.meazza.v_runner.util.isValidPassword
-import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 
 class AuthViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
+    private val _authResult = MutableLiveData<Int>()
+    val authResult: LiveData<Int> get() = _authResult
+
     val runnerName = MutableLiveData<String>()
     val runnerEmail = MutableLiveData<String>()
     val runnerPassword = MutableLiveData<String>()
 
-    fun signUp() = liveData(IO) {
+    fun signUpWithEmailAndPassword() {
 
         val name = runnerName.value
         val email = runnerEmail.value
         val password = runnerPassword.value
 
-        if (!name.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            try {
-                when {
-                    !isValidEmail(email) -> emit(INVALID_EMAIL)
-                    !isValidPassword(password) -> emit(INVALID_PASSWORD)
-                    isValidEmail(email) && isValidPassword(password) -> {
-                        authRepository.signUpByEmail(email, password)
-                        emit(OK)
+        viewModelScope.launch {
+            if (!name.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                try {
+                    when {
+                        !isValidEmail(email) -> _authResult.value = INVALID_EMAIL
+                        !isValidPassword(password) -> _authResult.value = INVALID_PASSWORD
+                        isValidEmail(email) && isValidPassword(password) -> {
+                            authRepository.signUpByEmail(email, password)
+                            _authResult.value = OK
+                        }
                     }
+                } catch (e: FirebaseAuthUserCollisionException) {
+                    _authResult.value = EMAIL_ALREADY_EXISTS
+                } catch (e: Exception) {
+                    _authResult.value = REGISTRATION_ERROR
+                    e.printStackTrace()
                 }
-            } catch (e: FirebaseAuthUserCollisionException) {
-                emit(EMAIL_ALREADY_EXISTS)
-            } catch (e: Exception) {
-                emit(REGISTRATION_ERROR)
-                e.printStackTrace()
+            } else {
+                _authResult.value = EMPTY_FIELDS
             }
-        } else {
-            emit(EMPTY_FIELDS)
         }
     }
 
-    fun loginWithEmailAndPassword() = liveData(IO) {
+    fun loginWithEmailAndPassword() {
+
         val email = runnerEmail.value
         val password = runnerPassword.value
 
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            try {
-                authRepository.loginByEmail(email, password)
-                emit(OK)
-            } catch (e: FirebaseAuthInvalidCredentialsException) {
-                emit(WRONG_PASSWORD)
-            } catch (e: FirebaseAuthInvalidUserException) {
-                emit(USER_NOT_FOUND)
-            } catch (e: Exception) {
-                emit(LOGIN_ERROR)
-                e.printStackTrace()
+        viewModelScope.launch {
+            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                try {
+                    authRepository.loginByEmail(email, password)
+                    _authResult.value = OK
+                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                    _authResult.value = WRONG_PASSWORD
+                } catch (e: FirebaseAuthInvalidUserException) {
+                    _authResult.value = USER_NOT_FOUND
+                } catch (e: Exception) {
+                    _authResult.value = LOGIN_ERROR
+                    e.printStackTrace()
+                }
+            } else {
+                _authResult.value = EMPTY_FIELDS
             }
-        } else {
-            emit(EMPTY_FIELDS)
         }
     }
 
-    fun resetPassword() = liveData(IO) {
+    fun resetPassword() {
 
         val email = runnerEmail.value
 
-        if (!email.isNullOrEmpty()) {
-            try {
-                when {
-                    !isValidEmail(email) -> emit(INVALID_EMAIL)
-                    isValidEmail(email) -> {
-                        authRepository.resetPassword(email)
-                        emit(OK)
+        viewModelScope.launch {
+            if (!email.isNullOrEmpty()) {
+                try {
+                    when {
+                        !isValidEmail(email) -> _authResult.value = INVALID_EMAIL
+                        isValidEmail(email) -> {
+                            authRepository.resetPassword(email)
+                            _authResult.value = OK
+                        }
                     }
+                } catch (e: FirebaseAuthInvalidUserException) {
+                    _authResult.value = USER_NOT_FOUND
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: FirebaseAuthInvalidUserException) {
-                emit(USER_NOT_FOUND)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } else {
+                _authResult.value = EMPTY_FIELDS
             }
-        } else {
-            emit(EMPTY_FIELDS)
         }
     }
 }
