@@ -63,9 +63,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha05")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha05")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
 
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
     kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
