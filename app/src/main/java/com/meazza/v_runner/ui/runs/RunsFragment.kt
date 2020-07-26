@@ -8,21 +8,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.meazza.v_runner.R
 import com.meazza.v_runner.common.Constants.REQUEST_CODE_LOCATION_PERMISSION
-import com.meazza.v_runner.common.Permissions
+import com.meazza.v_runner.common.PermissionRequester
 import com.meazza.v_runner.databinding.FragmentRunsBinding
 import com.meazza.v_runner.ui.runs.adapter.RunAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_runs.*
 import org.jetbrains.anko.support.v4.toast
-import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import javax.inject.Inject
 
 
-class RunsFragment : Fragment(R.layout.fragment_runs), EasyPermissions.PermissionCallbacks {
+@AndroidEntryPoint
+class RunsFragment : Fragment(R.layout.fragment_runs) {
+
+    @Inject
+    lateinit var mAuth: FirebaseAuth
 
     private val runsViewModel by viewModels<RunsViewModel>()
     private val runAdapter by lazy { RunAdapter() }
@@ -35,7 +43,7 @@ class RunsFragment : Fragment(R.layout.fragment_runs), EasyPermissions.Permissio
             viewModel = runsViewModel
         }
 
-        requestPermissions()
+        ifRunnerLogged(view)
         setUpRecyclerView()
         setUiAction()
 
@@ -43,14 +51,27 @@ class RunsFragment : Fragment(R.layout.fragment_runs), EasyPermissions.Permissio
             toast("${it.caloriesBurned}")
         }
 
-        runsViewModel.getRun().observe(viewLifecycleOwner, Observer { runs ->
+        runsViewModel.getRuns().observe(viewLifecycleOwner, Observer { runs ->
             runAdapter.differ.submitList(runs)
         })
     }
 
-    private fun setUiAction(){
+    private fun ifRunnerLogged(view: View) {
+        if (mAuth.currentUser == null) {
+            view.findNavController().navigate(
+                R.id.action_global_welcome, null,
+                NavOptions.Builder().setPopUpTo(R.id.nav_runs, true).build()
+            )
+        }
+    }
+
+    private fun setUiAction() {
         fab_new_run.setOnClickListener {
-            findNavController().navigate(R.id.action_new_run)
+            PermissionRequester(this, Manifest.permission.ACCESS_COARSE_LOCATION).apply {
+                runWithPermission {
+                    findNavController().navigate(R.id.action_new_run)
+                }
+            }
         }
     }
 
@@ -64,9 +85,7 @@ class RunsFragment : Fragment(R.layout.fragment_runs), EasyPermissions.Permissio
     }
 
     private fun requestPermissions() {
-        if(Permissions.hasLocationPermissions(requireContext())) {
-            return
-        }
+
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             EasyPermissions.requestPermissions(
                 this,
@@ -85,24 +104,5 @@ class RunsFragment : Fragment(R.layout.fragment_runs), EasyPermissions.Permissio
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )
         }
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if(EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        } else {
-            requestPermissions()
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }

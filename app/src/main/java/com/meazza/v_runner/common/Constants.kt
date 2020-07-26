@@ -28,6 +28,14 @@ package com.meazza.v_runner.common
     const val REGISTRATION_ERROR = 107
     const val LOGIN_ERROR = 108
     const val TRY_AGAIN = 109
-
     const val OK = 200
+
+    const val RUNS_REF = "runs"
+    const val IMAGE_URL = "image"
+    const val TIMESTAMP = "timestamp"
+    const val AVERAGE_SPEED = "averageSpeedInKmH"
+    const val DISTANCE = "distanceInMeters"
+    const val RUNNING_TIME = "timeInMillis"
+    const val CALORIES_BURNED = "caloriesBurned"
+    const val RUN_ID = "runId"
 }

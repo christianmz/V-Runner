@@ -1,12 +1,13 @@
 package com.meazza.v_runner.di
 
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.meazza.v_runner.R
-import com.meazza.v_runner.common.Constants
+import com.meazza.v_runner.common.Constants.ACTION_SHOW_TRACKING_FRAGMENT
 import com.meazza.v_runner.common.Constants.NOTIFICATION_CHANNEL_ID
 import com.meazza.v_runner.ui.HostActivity
 import dagger.Module
@@ -19,7 +20,7 @@ import dagger.hilt.android.scopes.ServiceScoped
 
 @Module
 @InstallIn(ServiceComponent::class)
-object ServiceModule {
+object TrackingModule {
 
     @ServiceScoped
     @Provides
@@ -32,10 +33,10 @@ object ServiceModule {
         return PendingIntent.getActivity(
             context,
             0,
-            Intent(context, HostActivity::class.java).also {
-                it.action = Constants.ACTION_SHOW_TRACKING_FRAGMENT
+            Intent(context, HostActivity::class.java).apply {
+                action = ACTION_SHOW_TRACKING_FRAGMENT
             },
-            PendingIntent.FLAG_UPDATE_CURRENT
+            FLAG_UPDATE_CURRENT
         )
     }
 

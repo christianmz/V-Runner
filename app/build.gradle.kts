@@ -54,10 +54,12 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
     implementation("androidx.preference:preference:1.1.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.activity:activity-ktx:1.2.0-alpha07")
     implementation("androidx.fragment:fragment-ktx:1.3.0-alpha06")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
@@ -68,8 +70,8 @@ dependencies {
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
     kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
 
-    implementation("com.google.dagger:hilt-android:2.28.1-alpha")
-    kapt("com.google.dagger:hilt-android-compiler:2.28.1-alpha")
+    implementation("com.google.dagger:hilt-android:2.28.3-alpha")
+    kapt("com.google.dagger:hilt-android-compiler:2.28.3-alpha")
 
     implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.android.gms:play-services-maps:17.0.0")

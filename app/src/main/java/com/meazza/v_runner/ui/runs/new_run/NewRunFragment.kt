@@ -22,12 +22,17 @@ import com.meazza.v_runner.common.Constants.ACTION_PAUSE_SERVICE
 import com.meazza.v_runner.common.Constants.ACTION_START_OR_RESUME_SERVICE
 import com.meazza.v_runner.common.Constants.ACTION_STOP_SERVICE
 import com.meazza.v_runner.common.Constants.POLYLINE_WIDTH
+import com.meazza.v_runner.data.model.Run
 import com.meazza.v_runner.service.TrackingService
 import com.meazza.v_runner.ui.runs.RunsViewModel
 import com.meazza.v_runner.util.Polyline
+import com.meazza.v_runner.util.calculatePolylineLength
 import com.meazza.v_runner.util.getFormattedStopWatchTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_new_run.*
+import org.jetbrains.anko.support.v4.toast
+import java.util.*
+import kotlin.math.round
 
 @AndroidEntryPoint
 class NewRunFragment : Fragment(R.layout.fragment_new_run) {
@@ -68,7 +73,7 @@ class NewRunFragment : Fragment(R.layout.fragment_new_run) {
 
         btn_finish_run.setOnClickListener {
             zoomToSeeWholeTrack()
-//            endRunAndSaveToDb()
+            endRunAndSaveToDb()
         }
     }
 
@@ -135,7 +140,7 @@ class NewRunFragment : Fragment(R.layout.fragment_new_run) {
         )
     }
 
-/*    private fun endRunAndSaveToDb() {
+    private fun endRunAndSaveToDb() {
         map?.snapshot { bmp ->
             var distanceInMeters = 0
             for (polyline in pathPoints) {
@@ -144,14 +149,14 @@ class NewRunFragment : Fragment(R.layout.fragment_new_run) {
             val avgSpeed = round((distanceInMeters / 1000f) / (curTimeInMillis / 1000f / 60 / 60) * 10) / 10f
             val dateTimestamp = Calendar.getInstance().timeInMillis
             val caloriesBurned = ((distanceInMeters / 1000f) * weight).toInt()
-//            val run = RunEntity(bmp, dateTimestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
+            val run = Run(bmp, dateTimestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
 
-//            runsViewModel.insertRun(run)
+            runsViewModel.insertRun(run)
 
             toast("Run saved successfully")
             stopRun()
         }
-    }*/
+    }
 
     private fun addLatestPolyline() {
 

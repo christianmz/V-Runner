@@ -1,24 +1,31 @@
 package com.meazza.v_runner.ui.runs
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.meazza.v_runner.data.model.Run
+import com.meazza.v_runner.data.repository.runs.RunsRepository
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
-class RunsViewModel : ViewModel() {
+class RunsViewModel @ViewModelInject constructor(
+    private val runsRepository: RunsRepository
+) : ViewModel() {
 
-    fun getRun() = liveData {
-        val runs = (0..3).map {
-            Run(
-                "2378",
-                "72342",
-                22,
-                64.7F,
-                16724,
-                1512766,
-                167
-            )
+    fun insertRun(run: Run) {
+        viewModelScope.launch {
+            runsRepository.insertRun(run)
         }
-        emit(runs)
+    }
+
+    fun getRuns() = liveData(IO) {
+        runsRepository.getRunsByDate().collect {
+            emit(it)
+        }
     }
 }
+
+

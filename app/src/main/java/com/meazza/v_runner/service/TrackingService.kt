@@ -1,6 +1,6 @@
 package com.meazza.v_runner.service
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
@@ -8,10 +8,12 @@ import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Looper
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
@@ -32,7 +34,6 @@ import com.meazza.v_runner.common.Constants.NOTIFICATION_CHANNEL_ID
 import com.meazza.v_runner.common.Constants.NOTIFICATION_CHANNEL_NAME
 import com.meazza.v_runner.common.Constants.NOTIFICATION_ID
 import com.meazza.v_runner.common.Constants.TIMER_UPDATE_INTERVAL
-import com.meazza.v_runner.common.Permissions
 import com.meazza.v_runner.util.Polylines
 import com.meazza.v_runner.util.getFormattedStopWatchTime
 import dagger.hilt.android.AndroidEntryPoint
@@ -167,7 +168,7 @@ class TrackingService : LifecycleService() {
             set(currentNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
 
-        if(!serviceKilled) {
+        if (!serviceKilled) {
             currentNotificationBuilder = baseNotificationBuilder.addAction(
                 R.drawable.ic_pause,
                 notificationActionText,
@@ -177,21 +178,36 @@ class TrackingService : LifecycleService() {
         }
     }
 
-    @SuppressLint("MissingPermission")
     private fun updateLocationTracking(isTracking: Boolean) {
+
         if (isTracking) {
-            if (Permissions.hasLocationPermissions(this)) {
-                val request = LocationRequest().apply {
-                    interval = LOCATION_UPDATE_INTERVAL
-                    fastestInterval = FASTEST_LOCATION_INTERVAL
-                    priority = PRIORITY_HIGH_ACCURACY
-                }
-                fusedLocationProviderClient.requestLocationUpdates(
-                    request,
-                    locationCallback(),
-                    Looper.getMainLooper()
-                )
+            val request = LocationRequest().apply {
+                interval = LOCATION_UPDATE_INTERVAL
+                fastestInterval = FASTEST_LOCATION_INTERVAL
+                priority = PRIORITY_HIGH_ACCURACY
             }
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
+            fusedLocationProviderClient.requestLocationUpdates(
+                request,
+                locationCallback(),
+                Looper.getMainLooper()
+            )
         } else {
             fusedLocationProviderClient.removeLocationUpdates(locationCallback())
         }
@@ -226,7 +242,6 @@ class TrackingService : LifecycleService() {
         pathPoints.postValue(this)
     } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
 
-
     private fun startForegroundService() {
 
         startTimer()
@@ -257,11 +272,12 @@ class TrackingService : LifecycleService() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
-        val channel = NotificationChannel(
-            NOTIFICATION_CHANNEL_ID,
-            NOTIFICATION_CHANNEL_NAME,
-            IMPORTANCE_LOW
+        notificationManager.createNotificationChannel(
+            NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                NOTIFICATION_CHANNEL_NAME,
+                IMPORTANCE_LOW
+            )
         )
-        notificationManager.createNotificationChannel(channel)
     }
 }
