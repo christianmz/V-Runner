@@ -30,85 +30,85 @@ class RunsServiceImpl @Inject constructor(
 ) : RunsService {
 
     private val uid = mAuth.currentUser?.uid
-    private val runRef = db.collection(RUNS_REF).document(uid!!).collection(RUNS_REF)
+    private val runRef = uid?.let { db.collection(RUNS_REF).document(it).collection(RUNS_REF) }
     private val storageRef = storage.reference
 
     override suspend fun insertRun(run: Run) {
-        runRef.add(run).addOnSuccessListener { documentRef ->
+
+        runRef?.add(run)?.addOnSuccessListener { documentRef ->
 
             val runId = documentRef.id
-            val bytes = run.image?.convertToByteArray()
+            val bitmap = run.image?.convertToByteArray()
 
-            bytes?.let { image ->
-                storageRef.child("$RUNS_REF/$uid/$runId").putBytes(image)
-                    .addOnSuccessListener {
-                        it.storage.downloadUrl.addOnSuccessListener { uri ->
-                            runRef.document(runId).update(
-                                IMAGE_URL, uri.toString(),
-                                RUN_ID, runId
-                            )
-                        }
+            storageRef.child("$RUNS_REF/$uid/$runId").putBytes(bitmap!!)
+                .addOnSuccessListener {
+                    it.storage.downloadUrl.addOnSuccessListener { uri ->
+                        runRef.document(runId).update(
+                            IMAGE_URL, uri.toString(),
+                            RUN_ID, runId
+                        )
                     }
-            }
-        }.await()
+                }
+
+        }?.await()
     }
 
     override suspend fun deleteRun(run: Run) {
-        runRef.document(run.runId).delete()
+        runRef?.document(run.runId)?.delete()
     }
 
     override suspend fun getRunsByDate(): Flow<List<Run>> = callbackFlow {
-        val subscription = runRef.orderBy(TIMESTAMP, Query.Direction.DESCENDING)
-            .addSnapshotListener { querySnapshot, _ ->
+        val subscription = runRef?.orderBy(TIMESTAMP, Query.Direction.DESCENDING)
+            ?.addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
                     val runs = it.toObjects(Run::class.java)
                     offer(runs)
                 }
             }
-        awaitClose { subscription.remove() }
+        awaitClose { subscription?.remove() }
     }
 
     override suspend fun getRunsByDistance(): Flow<List<Run>> = callbackFlow {
-        val subscription = runRef.orderBy(DISTANCE, Query.Direction.DESCENDING)
-            .addSnapshotListener { querySnapshot, _ ->
+        val subscription = runRef?.orderBy(DISTANCE, Query.Direction.DESCENDING)
+            ?.addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
                     val runs = it.toObjects(Run::class.java)
                     offer(runs)
                 }
             }
-        awaitClose { subscription.remove() }
+        awaitClose { subscription?.remove() }
     }
 
     override suspend fun getRunsByRunningTime(): Flow<List<Run>> = callbackFlow {
-        val subscription = runRef.orderBy(RUNNING_TIME, Query.Direction.DESCENDING)
-            .addSnapshotListener { querySnapshot, _ ->
+        val subscription = runRef?.orderBy(RUNNING_TIME, Query.Direction.DESCENDING)
+            ?.addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
                     val runs = it.toObjects(Run::class.java)
                     offer(runs)
                 }
             }
-        awaitClose { subscription.remove() }
+        awaitClose { subscription?.remove() }
     }
 
     override suspend fun getRunsByAverageSpeed(): Flow<List<Run>> = callbackFlow {
-        val subscription = runRef.orderBy(AVERAGE_SPEED, Query.Direction.DESCENDING)
-            .addSnapshotListener { querySnapshot, _ ->
+        val subscription = runRef?.orderBy(AVERAGE_SPEED, Query.Direction.DESCENDING)
+            ?.addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
                     val runs = it.toObjects(Run::class.java)
                     offer(runs)
                 }
             }
-        awaitClose { subscription.remove() }
+        awaitClose { subscription?.remove() }
     }
 
     override suspend fun getRunsByCaloriesBurned(): Flow<List<Run>> = callbackFlow {
-        val subscription = runRef.orderBy(CALORIES_BURNED, Query.Direction.DESCENDING)
-            .addSnapshotListener { querySnapshot, _ ->
+        val subscription = runRef?.orderBy(CALORIES_BURNED, Query.Direction.DESCENDING)
+            ?.addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
                     val runs = it.toObjects(Run::class.java)
                     offer(runs)
                 }
             }
-        awaitClose { subscription.remove() }
+        awaitClose { subscription?.remove() }
     }
 }

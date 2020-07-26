@@ -30,9 +30,9 @@ import com.meazza.v_runner.util.calculatePolylineLength
 import com.meazza.v_runner.util.getFormattedStopWatchTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_new_run.*
-import org.jetbrains.anko.support.v4.toast
 import java.util.*
 import kotlin.math.round
+
 
 @AndroidEntryPoint
 class NewRunFragment : Fragment(R.layout.fragment_new_run) {
@@ -80,12 +80,12 @@ class NewRunFragment : Fragment(R.layout.fragment_new_run) {
     private fun updateTracking(isTracking: Boolean) {
         this.isTracking = isTracking
         if (!isTracking) {
-            iv_toggle_run.load(R.drawable.ic_pause)
-            btn_finish_run.isEnabled = true
-        } else {
             menu?.getItem(0)?.isVisible = true
             iv_toggle_run.load(R.drawable.ic_play)
             btn_finish_run.isEnabled = false
+        } else {
+            iv_toggle_run.load(R.drawable.ic_pause)
+            btn_finish_run.isEnabled = true
         }
     }
 
@@ -152,8 +152,6 @@ class NewRunFragment : Fragment(R.layout.fragment_new_run) {
             val run = Run(bmp, dateTimestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
 
             runsViewModel.insertRun(run)
-
-            toast("Run saved successfully")
             stopRun()
         }
     }
